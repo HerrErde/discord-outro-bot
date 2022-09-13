@@ -19,6 +19,7 @@
       "discord-api-types": "^0.36.2",
       "discord.js": "^14.3.0",
       "dotenv": "^16.0.0",
-      "ffmpeg-static": "^5.1.0"
+      "ffmpeg-static": "^5.1.0",
+	  "tweetnacl": "^1.0.3"
     }
 }
