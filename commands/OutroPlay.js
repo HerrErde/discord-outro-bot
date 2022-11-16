@@ -16,7 +16,7 @@ module.exports = {
 
     const player = voiceDiscord.createAudioPlayer();
     const resource = voiceDiscord.createAudioResource(
-      join(__dirname, '/../outro.mp3'),
+      join(__dirname, '../sound/outro.mp3'),
       { inlineVolume: true }
     );
     resource.volume.setVolume(0.5);
