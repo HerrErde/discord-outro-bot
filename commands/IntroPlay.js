@@ -22,7 +22,7 @@ module.exports = {
     resource.volume.setVolume(0.5);
 
     const connection = voiceDiscord.joinVoiceChannel({
-      channelId: ("898939930212982795"),
+      channelId: process.env.channelId,
       guildId: interaction.guild.id,
       adapterCreator: interaction.guild.voiceAdapterCreator,
     });
@@ -32,7 +32,13 @@ module.exports = {
 
     player.on(voiceDiscord.AudioPlayerStatus.Idle, () => {
       connection.destroy();
-      interaction.member.voice.setChannel("898939930212982795");
+      interaction.member.voice.setChannel(process.env.channelId);
+      if (!interaction.member.voice.channel) {
+        return interaction.editReply({
+          content: 'You are not in a voice channel!',
+          ephemeral: true,
+        });
+      } return;
     });
 
     interaction.editReply({

@@ -18,7 +18,7 @@ const client = new Client({
 });
 
 const commandFiles = fs
-  .readdirSync('./commands')
+  .readdirSync('commands/')
   .filter((file) => file.endsWith('.js'));
 const commands = [];
 
@@ -34,27 +34,8 @@ client.once('ready', async () => {
   console.clear();
   console.log('Bot Online\nLogged in as:', client.user.tag);
 
-  const CLIENT_ID = client.user.id;
-
-  const rest = new REST({
-    version: '10',
-  }).setToken(process.env.token);
-
-  (async () => {
-    try {
-      await rest.put(Routes.applicationCommands(CLIENT_ID), {
-        body: commands,
-      });
-      console.log('Commands have been added to Global Usage.');
-    } catch (err) {
-      console.error(err);
-    }
-  })();
-
   client.user.setPresence({
-    activities: [
-      { name: `Waiting for an Outro!`, type: ActivityType.Competing },
-    ],
+    activities: [{ name: `Making Outros!`, type: ActivityType.Playing }],
     status: 'online',
   });
 });
@@ -63,9 +44,7 @@ client.on('interactionCreate', async (interaction) => {
   if (!interaction.type === 2) return;
 
   const command = client.commands.get(interaction.commandName);
-
   if (!command) return;
-
   await interaction.deferReply({ ephemeral: true });
 
   const ErrorEmbed = new EmbedBuilder()
